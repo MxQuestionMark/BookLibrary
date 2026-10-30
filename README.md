@@ -8,7 +8,7 @@ Keeping track of what books I have and haven't read, and what I thought about th
 
 ## How it works
 
-![System diagram](docs/diagram.png)
+![System diagram](SystemDiagram.png)
 
 ## Tech Stack
 
