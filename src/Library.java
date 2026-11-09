@@ -7,4 +7,13 @@ public class Library {
         name = n;
         books = new ArrayList<Book>();
     }
+    public String getName() {
+        return name;
+    }
+    public ArrayList<Book> getBooks() {
+        return books;
+    }
+    public void addBook(Book b) {
+        books.add(b);
+    }
 }
