@@ -15,4 +15,20 @@ public class Book {
         pages = p;
         read = r;
     }
+    @Override 
+    public String toString() {
+        return (title + " by " + author) + (read ? " [X]" : " [ ]");
+    }
+    public String getTitle() {
+        return title;
+    }
+    public String getAuthor() {
+        return author;
+    }
+    public String getPages() {
+        return pages;
+    }
+    public boolean isRead() {
+        return read;
+    }
 }
