@@ -16,4 +16,12 @@ public class Library {
     public void addBook(Book b) {
         books.add(b);
     }
+    public boolean validNumber(String s) {
+        try {
+            int num = Integer.parseInt(s);
+            return (num >= 0 && num < books.size());
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
 }
