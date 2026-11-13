@@ -7,7 +7,7 @@ public class BookLibrary {
     }
   }
   public static void main(String[] args) {
-    ArrayList<Library> libs = new ArrayList<Library>();
+    ArrayList<Library> libs = Library.getLibs();
     Library currentLib = new Library(null);
     
     IO.println("Hello and welcome to the BookLibrary program!");
@@ -31,7 +31,7 @@ public class BookLibrary {
         // Library doesn't already exist
         if (IO.readln("That name doesn't currently have an associated library...\nWould you like to make a new one? (Y/N): ").equals("Y")) {
           currentLib = new Library(name);
-          libs.add(currentLib);
+          Library.update(currentLib);
           cont = false;
         }
       }
@@ -40,9 +40,10 @@ public class BookLibrary {
     boolean loggedin = true;
     String cmd;
     while (loggedin) {
+      Library.update(currentLib);
       clear();
-      cmd = IO.readln("What would you like to do? (New/View/Edit): ");
-      while (!(cmd.equals("New") || cmd.equals("View") || cmd.equals("Edit"))) {
+      cmd = IO.readln("What would you like to do? (New/View/Edit/Log Out): ");
+      while (!(cmd.equals("New") || cmd.equals("View") || cmd.equals("Edit") || cmd.equals("Log Out"))) {
         cmd = IO.readln("Please enter a valid response. (New/View/Edit): ");
       }
       if (cmd.equals("New")) {
@@ -60,6 +61,7 @@ public class BookLibrary {
           currentLib.addBook(new Book(title, author, pages, false));
         }
         IO.println(title + " by " + author + " with " + pages + " pages has been added to your library!");
+        IO.readln("Press enter to continue...");
       } else if (cmd.equals("View")) {
         ArrayList<Book> books = currentLib.getBooks(); // Gets list of books and prints all the books
         for (int i = 0; i < books.size(); i++) {
@@ -136,6 +138,10 @@ public class BookLibrary {
             clear();
           }
         }
+      } else if (cmd.equals("Log Out")) {
+          Library.update(currentLib);
+          loggedin = false;
+          IO.println("Goodbye!");
       }
     }
   }
