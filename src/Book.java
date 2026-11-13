@@ -31,4 +31,16 @@ public class Book {
     public boolean isRead() {
         return read;
     }
+    public void setTitle(String t) {
+        title = t;
+    }
+    public void setAuthor(String a) {
+        author = a;
+    }
+    public void setPages(String p) {
+        pages = p;
+    }
+    public void toggleRead() {
+        read = !read;
+    }
 }
