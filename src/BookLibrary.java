@@ -1,5 +1,11 @@
 import java.util.ArrayList;
 public class BookLibrary {
+  // This is a function to clear the terminal so you arent overwhelmed by lines...
+  private static void clear() {
+    for (int i = 0; i < 60; i++) {
+      IO.println();
+    }
+  }
   public static void main(String[] args) {
     ArrayList<Library> libs = new ArrayList<Library>();
     Library currentLib = new Library(null);
@@ -8,6 +14,8 @@ public class BookLibrary {
     boolean newUser = true;
     boolean cont = true;
     
+    clear();
+
     // Loop to figure out if the user already has a library or should make a new one.
     while (cont) {
       String name = IO.readln("What is your name? ");
@@ -32,9 +40,10 @@ public class BookLibrary {
     boolean loggedin = true;
     String cmd;
     while (loggedin) {
+      clear();
       cmd = IO.readln("What would you like to do? (New/View/Edit): ");
-      while (!(cmd.equals("New") || cmd.equals("View"))) {
-        cmd = IO.readln("Please pick a valid option. (New/View/Edit): ");
+      while (!(cmd.equals("New") || cmd.equals("View") || cmd.equals("Edit"))) {
+        cmd = IO.readln("Please enter a valid response. (New/View/Edit): ");
       }
       if (cmd.equals("New")) {
         IO.println("Generating new book!");
@@ -62,6 +71,7 @@ public class BookLibrary {
           while (!(ans.equals("Exit") || currentLib.validNumber(ans))) {
             ans = IO.readln("Please enter a valid response. (# or Exit) ");
           }
+          clear();
           if (ans.equals("Exit")) {
             cont1 = false;
           } else {
@@ -69,6 +79,61 @@ public class BookLibrary {
             IO.println(book.getTitle() + " by " + book.getAuthor());
             IO.println(book.isRead() ? "Already read!" : "Not yet read...");
             IO.println("Page count: " + book.getPages());
+          }
+        }
+      } else if (cmd.equals("Edit")) {
+        ArrayList<Book> books = currentLib.getBooks(); // Gets list of books and prints all the books
+        for (int i = 0; i < books.size(); i++) {
+          IO.println(i+": "+books.get(i));
+        }
+        boolean cont1 = true; // continue var to loop until they want to stop editing books
+        while (cont1) {
+          String ans = IO.readln("Please select a book to edit or exit. (# or Exit) ");
+          while (!(ans.equals("Exit") || currentLib.validNumber(ans))) {
+            ans = IO.readln("Please enter a valid response. (# or Exit) ");
+          }
+          clear();
+          if (ans.equals("Exit")) {
+            cont1 = false;
+          } else {
+            Book book = books.get(Integer.parseInt(ans)); // add more info in the future here
+            IO.println("Current Information:");
+            IO.println(book.getTitle() + " by " + book.getAuthor());
+            IO.println(book.isRead() ? "Already read!" : "Not yet read...");
+            IO.println("Page count: " + book.getPages());
+            IO.println("What would you like to change? (#)");
+            IO.println("(1) - Title");
+            IO.println("(2) - Author");
+            IO.println("(3) - Pages");
+            IO.println("(4) - Read");
+            String editAns = IO.readln();
+            while (!(editAns.equals("1") || editAns.equals("2") || editAns.equals("3") || editAns.equals("4"))) {
+              editAns = IO.readln("Please enter a valid response (#)");
+            }
+            switch (editAns) {
+              case "1" -> {
+                String s = IO.readln("New Title: ");
+                book.setTitle(s);
+              }
+              case "2" -> {
+                String s = IO.readln("New Author: ");
+                book.setAuthor(s);
+              }
+              case "3" -> {
+                String s = IO.readln("New Page Count: ");
+                book.setPages(s);
+              }
+              case "4" -> {
+                book.toggleRead();
+              }
+            }
+            IO.println("New Information:");
+            IO.println(book.getTitle() + " by " + book.getAuthor());
+            IO.println(book.isRead() ? "Already read!" : "Not yet read...");
+            IO.println("Page count: " + book.getPages());
+            IO.println("Press enter to continue...");
+            IO.readln();
+            clear();
           }
         }
       }
