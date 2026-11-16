@@ -9,7 +9,7 @@ I have the problem of having too many books that I'm reading all at once, and ke
 
 ## How it works
 
-![System diagram](SystemDiagram.png)
+![System diagram](SystemDiagramV2.png)
 
 ## Tech Stack
 
