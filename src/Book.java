@@ -5,11 +5,13 @@ public class Book implements Serializable{
     private String author;
     private String pages;
     private boolean read;
+    private String summary;
     public Book(String t, String a, String p, boolean r) {
         title = t;
         author = a;
         pages = p;
         read = r;
+        summary = null;
     }
     public void edit(String t, String a, String p, boolean r) {
         title = t;
@@ -44,5 +46,14 @@ public class Book implements Serializable{
     }
     public void toggleRead() {
         read = !read;
+    }
+    public String getSummary() {
+        return summary;
+    }
+    public void setSummary(String s) {
+        summary = s;
+    }
+    public boolean hasSummary() {
+        return !(summary == null);
     }
 }
