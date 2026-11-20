@@ -8,10 +8,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
-//ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("libs.data"));
-//ObjectInputStream in = new ObjectInputStream(new FileInputStream("libs.data"));
-
-public class Library implements  Serializable {
+public class Library implements Serializable {
     private String name;
     private ArrayList<Book> books;
     private static ArrayList<Library> libs = new ArrayList<>();
@@ -32,7 +29,9 @@ public class Library implements  Serializable {
                 out.writeObject(lib);
             }
             out.close();
-        } catch (Exception e) {}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         getLibs();
     }
     public static ArrayList<Library> getLibs() {
