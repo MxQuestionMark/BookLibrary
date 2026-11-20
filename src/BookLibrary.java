@@ -64,14 +64,17 @@ public class BookLibrary {
           currentLib.addBook(b);
         }
         IO.println(title + " by " + author + " with " + pages + " pages has been added to your library!");
-        String summary = IO.readln("Would you like to write a summary of this book for future you? (Y/N): ");
-        while (!(read.equals("Y") || read.equals("N"))) {
-          summary = IO.readln("Please enter a valid response. (Y/N): ");
+        String summary = IO.readln("Would you like to write a long/short summary of this book for future you? (Long/Short/N): ");
+        while (!(summary.equals("Long") || summary.equals("Short") || summary.equals("N"))) {
+          summary = IO.readln("Please enter a valid response. (Long/Short/N): ");
         }
-        if (summary.equals("Y")) {
-          IO.println("Type summary here - press enter when done: ");
-          b.setSummary(IO.readln());
-        } else {
+        if (summary.equals("Long")) {
+          IO.println("Type long summary here - press enter when done: ");
+          b.setLongSummary(IO.readln());
+        } else if (summary.equals("Short")) {
+          IO.println("Type short summary here - press enter when done: ");
+          b.setShortSummary(IO.readln());
+        }else {
           IO.println("Thank you!");
         }
         IO.readln("Press enter to continue...");
@@ -94,10 +97,25 @@ public class BookLibrary {
             IO.println(book.getTitle() + " by " + book.getAuthor());
             IO.println(book.isRead() ? "Already read!" : "Not yet read...");
             IO.println("Page count: " + book.getPages());
-            if (book.getSummary() == null) {
-              IO.println("This book currently has no summary");
+            if (book.hasLongSummary() && book.hasShortSummary()) {
+              IO.println();
+              IO.println("Short Summary: ");
+              IO.println(book.getShortSummary());
+              IO.println();
+              IO.println("Long Summary: ");
+              IO.println(book.getLongSummary());
+            }
+            else if (book.hasShortSummary()) {
+              IO.println();
+              IO.println("Short Summary: ");
+              IO.println(book.getShortSummary());
+            }
+            else if (book.hasLongSummary()) {
+              IO.println();
+              IO.println("Long Summary: ");
+              IO.println(book.getLongSummary());
             } else {
-              IO.println(book.getSummary());
+              IO.println("This book currently has no summary");
             }
           }
         }
@@ -121,15 +139,17 @@ public class BookLibrary {
             IO.println(book.getTitle() + " by " + book.getAuthor());
             IO.println(book.isRead() ? "Already read!" : "Not yet read...");
             IO.println("Page count: " + book.getPages());
-            IO.println("Has summary: " + (book.hasSummary() ? "[X]" : "[ ]"));
+            IO.println("Has short summary: " + (book.hasShortSummary() ? "[X]" : "[ ]"));
+            IO.println("Has long summary: " + (book.hasLongSummary() ? "[X]" : "[ ]"));
             IO.println("What would you like to change? (#)");
             IO.println("(1) - Title");
             IO.println("(2) - Author");
             IO.println("(3) - Pages");
             IO.println("(4) - Read");
-            IO.println("(5) - Summary");
+            IO.println("(5) - Short Summary");
+            IO.println("(6) - Long Summary");
             String editAns = IO.readln();
-            while (!(editAns.equals("1") || editAns.equals("2") || editAns.equals("3") || editAns.equals("4") || editAns.equals("5"))) {
+            while (!(editAns.equals("1") || editAns.equals("2") || editAns.equals("3") || editAns.equals("4") || editAns.equals("5") || editAns.equals("6"))) {
               editAns = IO.readln("Please enter a valid response (#)");
             }
             switch (editAns) {
@@ -149,19 +169,28 @@ public class BookLibrary {
                 book.toggleRead();
               }
               case "5" -> {
-                if (book.hasSummary()) {
-                  IO.println("Please write your new summary here - press enter when done: ");
+                if (book.hasShortSummary()) {
+                  IO.println("Please write your new short summary here - press enter when done: ");
                 } else {
-                  IO.println("Write your summary here - press enter when done: ");
+                  IO.println("Write your short summary here - press enter when done: ");
                 }
-                book.setSummary(IO.readln());
+                book.setShortSummary(IO.readln());
+              }
+              case "6" -> {
+                if (book.hasLongSummary()) {
+                  IO.println("Please write your new long summary here - press enter when done: ");
+                } else {
+                  IO.println("Write your long summary here - press enter when done: ");
+                }
+                book.setLongSummary(IO.readln());
               }
             }
             IO.println("New Information:");
             IO.println(book.getTitle() + " by " + book.getAuthor());
             IO.println(book.isRead() ? "Already read!" : "Not yet read...");
             IO.println("Page count: " + book.getPages());
-            IO.println("Has summary: " + (book.hasSummary() ? "[X]" : "[ ]"));
+            IO.println("Has short summary: " + (book.hasShortSummary() ? "[X]" : "[ ]"));
+            IO.println("Has long summary: " + (book.hasLongSummary() ? "[X]" : "[ ]"));
             IO.println("Press enter to continue...");
             IO.readln();
             clear();

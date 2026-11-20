@@ -36,7 +36,7 @@ Please never CTRL+C the program as that might cause data loss. Always log out.
 - [ ] Tags (Physical/Audible, Owned/Borrowed, etc.)
 - [ ] Sorting/Searching
 - [X] Multiple profiles
-- [ ] Variable summaries
+- [X] Variable summaries
 - [ ] Custom Tags
 - [ ] Prices
 - [ ] Similar to...
